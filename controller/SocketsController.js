@@ -11,7 +11,6 @@ module.exports = {
               nombre: req.query.nombre,
               id: req.query.id,
 		  });
-
 		res.send("<h1>Enviado</h1>")
 	}
 }
