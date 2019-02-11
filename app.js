@@ -30,7 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //Archivo de rutas
 app.use("/", web);
 
-//Ejs
+//Ejs middleware
 app.engine('ejs', require('express-ejs-extend')); // add this line
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
