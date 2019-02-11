@@ -63,7 +63,7 @@
         $( document ).ready(function() {
             var socket = io();
 
-            	// var estudiante1 = $("#pruebaSockets1").text();
+            	// var estudiante1 = $("#pruebaSockets1").text(); 
             socket.on('sendToClient', function(data){
             	if (data.nombre === $("#pruebaSockets1").text() && data.asistencia) {
                 	$("#pruebaSockets1").css("background-color", "#2DBE2A").append(`<small style="background-color: green;">   Check</small>`)
