@@ -41,6 +41,7 @@
 </head>
 <body onload="init();">
 	<h1>Calendario Clases de Srapch Institut</h1>
+	<h1><%= prueba %></h1>
 	<div id="scheduler_here" class="dhx_cal_container" style='width:100%; height:100%;'>
 		<div class="dhx_cal_navline">
 			<div class="dhx_cal_prev_button">&nbsp;</div>
@@ -162,9 +163,21 @@
 			});
 
 			//importante
+			scheduler.templates.event_header = function(start,end,ev){
+			    return scheduler.templates.event_date(start)+" - "+
+			    scheduler.templates.event_date(end) + "   " + ev.clase + "   " + ev.profesor;
+			};
+
 			scheduler.templates.event_text=function(start, end, event){
-			    return event.section_id + "<br>" + event.text;
+				let nombre = ""
+				for (var estudiante of event.estudiantes) {
+					nombre += "<br>" + estudiante.nombre
+					console.log(estudiante.nombre)
+				}
+			    return nombre;
 			}
+
+			//
 
 			//probar	
 			scheduler.templates.tooltip_text = function(start,end,event) {
@@ -175,10 +188,6 @@
 			//quitar los iconos de la izquierda
 			scheduler.config.icons_select = [];
 			scheduler.config.select = false;
-
-			// scheduler.config.readonly = true;
-
-			
 
 			//
 
@@ -193,12 +202,8 @@
 			scheduler.parse([
 				{ 
 					start_date: "2019-02-11 10:00", 
-					end_date: "2019-02-11 15:00", 
+					end_date: "2019-02-11 12:30", 
 					text:`
-						<p style='margin: 0;'>Intesivo A1</p>
-						<p style='margin: 0;'>Docente: Patricia Aponte</p>
-						<button style='margin: 0;'>Agregar Estudiante</button>
-						<p style='margin: 0;'>Estudiantes:</p>
 						<ul style="margin:0;">
 							<li id="pruebaSockets1">Juan Pablo</li>
 							<li id="pruebaSockets2">Miguel Angel</li>
@@ -206,6 +211,18 @@
 							<li id="pruebaSockets4">Diana</li>
 						</ul>
 					`, 
+					clase: "Intesivo A2",
+					profesor: "Patricia Aponte",
+					estudiantes: [{
+						id: 1,
+						nombre: "Juan Pablo"
+					},{
+						id: 2,
+						nombre: "test Pablo"
+					},{
+						id: 3,
+						nombre: "Ha$loṔablito"
+					}],
 					details: 'pruebaaaaaaaaaaaaaaaaaaaaaa',
 					section_id:'4'
 				},
@@ -213,18 +230,43 @@
 					start_date: "2019-02-11 9:00",
 					end_date: "2019-02-11 14:00", 
 					text:"Extensiva B2", 
+					clase: "Extensiva A2",
+					estudiantes: [{
+						id: 1,
+						nombre: "Juan Pablo"
+					},{
+						id: 2,
+						nombre: "test Pablo"
+					}],
+					profesor: "Patricia Aponte",
 					section_id:'1'
 				},
 				{ 
 					start_date: "2019-02-11 6:30",
 					end_date: "2019-02-11 14:00", 
-					text:"Extensiva C2", 
+					clase:"Extensiva C2", 
+					estudiantes: [{
+						id: 1,
+						nombre: "Juan Pablo"
+					},{
+						id: 2,
+						nombre: "test Pablo"
+					}],
+					profesor: "Patricia Aponte",
 					section_id:'2'
 				},
 				{ 
 					start_date: "2019-02-11 9:00",
 					end_date: "2019-02-11 14:00", 
-					text:"Extensiva B2", 
+					clase:"Extensiva B2",
+					estudiantes: [{
+						id: 1,
+						nombre: "Juan Pablo"
+					},{
+						id: 2,
+						nombre: "test Pablo"
+					}],
+					profesor: "Patricia Aponte",
 					section_id:'3'
 				}
 			],"json");

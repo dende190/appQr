@@ -3,6 +3,8 @@ var router = express.Router();
 
 module.exports = {
 	dash: function(req, res){
-		res.render('calen.ejs')
+		res.render('calen.ejs', {
+			'prueba': "hola mundo"
+		})
 	}
 }
