@@ -6,7 +6,7 @@ const CalendarioController = require('../controller/CalendarioController')
 const SocketsController = require('../controller/SocketsController')
 const AsistenciaController = require('../controller/AsistenciaController')
 
-//CALENDARIO
+//CALENDARIO0
 router.get("/" , CalendarioController.dash);
 
 //QR
