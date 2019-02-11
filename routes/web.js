@@ -8,6 +8,7 @@ const AsistenciaController = require('../controller/AsistenciaController')
 
 //CALENDARIO
 router.get("/" , CalendarioController.dash);
+router.get("/data" , CalendarioController.informacionDash);
 
 //QR
 router.get("/asistencia" , AsistenciaController.dash);
