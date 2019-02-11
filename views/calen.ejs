@@ -117,34 +117,49 @@
 			// scheduler.locale.labels.section_custom = "Section";
 
 			var sections = [
-				{key: 1, label: "Dortmund"},
-				{key: 2, label: "Frankfurt"},
-				{key: 3, label: "Stuttgart"},
-				{key: 4, label: "Koln"},
+				{key: 1, label: "Frankfurt"},
+				{key: 2, label: "Bochum"},
+				{key: 3, label: "Freiburg"},
+				{key: 4, label: "Stuttgart"},
+				{key: 5, label: "Salzburg"},
+				{key: 6, label: "Zürich"},
+				{key: 7, label: "Wien"},
+				{key: 8, label: "München"},
+				{key: 9, label: "Berlin"},
+				{key: 10, label: "Köln"},
+				{key: 11, label: "Dortmund"},
+				{key: 12, label: "Lüneburg"},
+				{key: 13, label: "Klassenzimmer-A"},
+				{key: 14, label: "Klassenzimmer-B"},
 			];
 
-			scheduler.createTimelineView({
-				name: "timeline",
-				x_unit: "hour",
-				x_date: "%H:%i",
-				x_step: 8,
-				x_size: 33,
-				x_length:33,
-				event_dy:60,
-				resize_events:false,
-				y_unit: sections,
-				y_property: "section_id",
-				render: "bar",
-				second_scale:{
-					x_unit: "day", // unit which should be used for second scale
-					x_date: "%F %d" // date format which should be used for second scale, "July 01"
-				}
-			});
+			// scheduler.createTimelineView({
+			// 	name: "timeline",
+			// 	x_unit: "minute",
+			// 	x_date: "%H:%i",
+			// 	x_step: 8,
+			// 	x_size: 33,
+			// 	x_length:33,
+			// 	event_dy:60,
+			// 	resize_events:false,
+			// 	y_unit: sections,
+			// 	y_property: "section_id",
+            //     render: "bar",
+            //     scrollable: true,  
+            //     column_width: 70, 
+			// 	second_scale:{
+			// 		x_unit: "day", // unit which should be used for second scale
+			// 		x_date: "%F %d" // date format which should be used for second scale, "July 01"
+			// 	}
+			// });
 			scheduler.date.timeline_start = scheduler.date.day_start;
 			scheduler.createUnitsView({
 				name: "unit",
 				property: "section_id",
-				list: sections
+                list: sections,
+                size:5, // the number of units that should be shown in the view 
+                step:5, // the number of units that will be scrolled at once
+                skip_incorrect:true
 			});
 
 			//pruebas
@@ -170,15 +185,12 @@
 
 			//importante
 			scheduler.templates.event_header = function(start, end, ev) {
-                return (
-                    scheduler.templates.event_date(start) +
-                    "-" +
-                    scheduler.templates.event_date(end) +
-                    " <span class='negrilla'>Curso: </span>" +
-                    ev.clase +
-                    " <span class='negrilla'>Profesor: </span>" +
-                    ev.profesor
-                );
+                // console.log(ev)
+                let header = `<div class="text-center">
+                                ${scheduler.templates.event_date(start)}-${scheduler.templates.event_date(end)}
+                                <span class='negrilla'>Curso:  ${ev.clase}</span>
+                            </div>`
+                return header
             };
             scheduler.attachEvent("onClick", function (id, e){
                 console.log(id)
