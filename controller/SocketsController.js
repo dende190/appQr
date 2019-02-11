@@ -11,7 +11,6 @@ module.exports = {
 		  	nombre: req.query.nombre,
 		  	asistencia: req.query.asistencia,
 		  });
-
 		res.send("<h1>Enviado</h1>")
 	}
 }
