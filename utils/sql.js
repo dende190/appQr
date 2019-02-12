@@ -1,6 +1,6 @@
 
-const registrarAsistencia = `INSERT INTO asistencia_estudiante (id_estudiante, id_salon, id_clase, id_profesor, en_clase, hora_registro )
-                            VALUES (?,?,?,?,?,?)`;
+const registrarAsistencia = `INSERT INTO asistencia_estudiante (id_estudiante, id_salon, id_clase, id_profesor, hora_registro )
+                            VALUES (?,?,?,?,?)`;
 const calendarioClases = `SELECT clase.id AS id_clase, profesor.nombres AS nombre_profesor, profesor.apellidos AS apellido_profesor, 
                                 modalidad.nombre AS modalidad, nivel.nombre AS nivel, salon.nombre AS salon, clase.hora_inicio, 
                                 clase.hora_final, estudiante.nombres AS nombre_estudiante, estudiante.apellidos AS apellido_estudiante, 
@@ -28,9 +28,13 @@ const listaClases = `SELECT  profesor.nombres AS nombre_profesor, profesor.apell
             INNER JOIN profesor ON profesor.id = clase_profesor.id_profesor`
 
 const asistenciaEstudiantes = `SELECT * FROM asistencia_estudiante WHERE hora_registro LIKE  ?`
+
+const cambiarClase = `UPDATE clase SET hora_inicio = ? , hora_final = ?, id_salon = ? 
+                        WHERE id = ?`
 module.exports = {
     registrarAsistencia,
     calendarioClases,
     asistenciaEstudiantes,
-    listaClases
+    listaClases,
+    cambiarClase
 }
