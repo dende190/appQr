@@ -6,6 +6,12 @@ const query = "SELECT clase.id AS id_clase, profesor.nombres AS nombre_profesor,
 
 module.exports = {
 	dash: async function(req, res){
+        res.render('calen.ejs', {
+            'prueba': "hola mundo"
+        })
+    },
+    informacionDash: async function(req, res) {
+
         let result
         const dataBase = await mysql.conexionApp()
         if (dataBase) {
@@ -25,7 +31,7 @@ module.exports = {
                 if (datos.id_clase == datos2.id_clase) {
                     arrayEstudiates.push({
                         id: datos2.id_estudiante,
-                        nombre: datos2.nombre_estudiante
+                        nombre: datos2.nombre_estudiante.toLowerCase()
                     })
                 }                
             }
@@ -34,21 +40,16 @@ module.exports = {
                 end_date: "2019-02-11 " + datos.hora_final,
                 clase: datos.modalidad + " " + datos.nivel,
                 profesor: datos.nombre_profesor + " " + datos.apellido_profesor,
-                estudiantes: arrayEstudiates
+                estudiantes: arrayEstudiates,
+                section_id: "2",
             });
 
             break;
 
         }
 
-        console.log(arrayJson[0].estudiantes)
+        console.log(arrayJson)
                     
-        res.render('calen.ejs', {
-            'prueba': "hola mundo"
-        })
-    },
-    informacionDash: async function(req, res) {
-
-        res.send("datos")
+        res.send(arrayJson)
     }
 }
