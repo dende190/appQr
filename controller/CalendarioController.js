@@ -1,8 +1,9 @@
 const express = require('express');
 const mysql = require("../config/database")
 const router = express.Router();
-var crypto = require('crypto');
-var assert = require('assert');
+const moment = require('moment')
+const crypto = require('crypto');
+const assert = require('assert');
 const {calendarioClases} = require('../utils/sql')
 
 
@@ -11,8 +12,8 @@ module.exports = {
 
         
         var algorithm = 'aes256'; // or any other algorithm supported by OpenSSL
-        var key = '123456789-Aa';
-        var text = 'Ha$lo Pablito el kpito';
+        var key = '1';
+        var text = 'laverde';
         
         var cipher = crypto.createCipher(algorithm, key);  
         var encrypted = cipher.update(text, 'utf8', 'hex') + cipher.final('hex');
@@ -30,12 +31,12 @@ module.exports = {
         })
     },
     informacionDash: async function (req, res) {
-
+        let fecha = moment().format("YYYY-MM-DD")
         let result
         const dataBase = await mysql.conexionApp()
         if (dataBase) {
             try {
-                let [rows, fields] = await dataBase.query(calendarioClases);
+                let [rows, fields] = await dataBase.query(calendarioClases, fecha);
                 result = rows;
             } catch (e) {
                 console.log("(ERROR)" + e);
@@ -48,19 +49,23 @@ module.exports = {
         arrayJsonTemp = []
         arrayEstudiates = []
         temp = []
+        let i = 1
         for (let datos of result) {
             for (let datos2 of result) {
+                
                 if (datos.id_clase == datos2.id_clase) {
                     arrayEstudiates.push({
                         id: datos2.id_estudiante,
-                        nombre: datos2.nombre_estudiante.toLowerCase()
+                        nombre: datos2.nombre_estudiante.toLowerCase(),
+                        asistencia: 0
                     })
                 }
                 if (datos.id_clase != arrayJsonTemp.id_clase) {
                     arrayJson.push({
+                        id: i,
                         id_clase: datos.id_clase,
-                        start_date: "2019-02-12 " + datos.hora_inicio,
-                        end_date: "2019-02-12 " + datos.hora_final,
+                        start_date: fecha + " " + datos.hora_inicio,
+                        end_date: fecha + " " + datos.hora_final,
                         clase: datos.modalidad + " " + datos.nivel,
                         profesor: datos.nombre_profesor + " " + datos.apellido_profesor,
                         estudiantes: arrayEstudiates,
@@ -69,6 +74,7 @@ module.exports = {
                     arrayJsonTemp = {
                         id_clase: datos.id_clase
                     }
+                    i++
                 }
             }
             arrayEstudiates = []

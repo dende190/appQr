@@ -21,6 +21,7 @@ module.exports = {
                 console.log("Erro ingresando el estudiante a la lista en la base de datos :(" + error)
             }
         }
+        
 		var io = req.app.get('socket.io'); 
 		  io.emit('sendToClient', { 
               id: req.query.e,
