@@ -6,7 +6,7 @@ const CalendarioController = require('../controller/CalendarioController')
 const SocketsController = require('../controller/SocketsController')
 const AsistenciaController = require('../controller/AsistenciaController')
 
-//CALENDARIO0
+//CALENDARIO
 router.get("/" , CalendarioController.dash);
 router.get("/data" , CalendarioController.informacionDash);
 
