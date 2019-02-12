@@ -11,10 +11,24 @@
 			align-items: center;
 		}
 	</style>
+	    <link rel="stylesheet" href="/css/styles.css"></script>
 </head>
 <body>
+		<svg viewBox="0 0 960 300">
+				<symbol id="s-text">
+					<text text-anchor="middle" x="50%" y="80%">Escanea</text>
+				</symbol>
+			
+				<g class = "g-ants">
+					<use xlink:href="#s-text" class="text-copy"></use>
+					<use xlink:href="#s-text" class="text-copy"></use>
+					<use xlink:href="#s-text" class="text-copy"></use>
+					<use xlink:href="#s-text" class="text-copy"></use>
+					<use xlink:href="#s-text" class="text-copy"></use>
+				</g>
+			</svg>
 	<div class="container">
-		<h1>Por favor marque su asistencia</h1>
+		<!-- <h1>Por favor marque su asistencia</h1> -->
 		<canvas id="codigo"></canvas>
 	</div>
 	

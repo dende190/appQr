@@ -10,5 +10,5 @@
   "DB_PASS2": "IPdesarrollo2020",
   "DB_DATABASE_NAGIOS2": "nagios",
   "DB_DATABASE_IPCONSULTORES": "ipconsultores",
-  "DB_DATABASE_APP": "app_assist"
+  "DB_DATABASE_APP": "app_asist"
 }

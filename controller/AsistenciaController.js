@@ -5,7 +5,7 @@ module.exports = {
 	dash: function(req, res){
 		var QRCode = require('qrcode')
  
-		QRCode.toDataURL(`http://172.16.10.13:3000/sockets?n=2&a=1`,{
+		QRCode.toDataURL(`http://172.16.10.12:3000/sockets?e=17&s=5&c=45&p=8&a=1`,{
 			scale:7,
 			
 		})
