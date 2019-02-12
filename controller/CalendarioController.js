@@ -45,7 +45,6 @@ module.exports = {
             try {
                 let [rows, fields] = await dataBase.query(asistenciaEstudiantes, `${fecha}%`);
                 asistencias = rows;
-                console.log(asistencias)
             } catch (e) {
                 console.log("(ERROR)" + e);
             }
@@ -74,10 +73,13 @@ module.exports = {
                         id_clase: datos.id_clase,
                         start_date: fecha + " " + datos.hora_inicio,
                         end_date: fecha + " " + datos.hora_final,
+                        hora_inicio: datos.hora_inicio,
+                        hora_final: datos.hora_final,
                         clase: datos.modalidad + " " + datos.nivel,
                         profesor: datos.nombre_profesor + " " + datos.apellido_profesor,
                         estudiantes: arrayEstudiates,
                         section_id: datos.id_salon,
+
                     })
                     arrayJsonTemp = {
                         id_clase: datos.id_clase
@@ -87,13 +89,11 @@ module.exports = {
             }
             arrayEstudiates = []
         }
-        // console.log(arrayJson)
         for(let asistencia of asistencias) {
             for(clase of arrayJson) {
                 for(estudiante of clase.estudiantes) {
                     if(asistencia.id_estudiante == estudiante.id) {
                         estudiante.asistencia = 1
-                        console.log('existe un estudiante en la lista de asistidos')
                     }
                 }
             }

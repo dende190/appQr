@@ -16,5 +16,6 @@ router.get("/asistencia" , AsistenciaController.dash);
 
 //Sockets
 router.get("/sockets", SocketsController.send)
+router.post("/evento", SocketsController.evento)
 
 module.exports = router;

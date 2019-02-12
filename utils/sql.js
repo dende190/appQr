@@ -16,8 +16,11 @@ const calendarioClases = `SELECT clase.id AS id_clase, profesor.nombres AS nombr
                             WHERE clase.fecha_final > ?
                         `
 const asistenciaEstudiantes = `SELECT * FROM asistencia_estudiante WHERE hora_registro LIKE  ?`
+const cambiarClase = `UPDATE clase SET hora_inicio = ? , hora_final = ?, id_salon = ? 
+                        WHERE id = ?`
 module.exports = {
     registrarAsistencia,
     calendarioClases,
-    asistenciaEstudiantes
+    asistenciaEstudiantes,
+    cambiarClase
 }

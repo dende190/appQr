@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function init(){
     var socket = io();
 
     socket.on("sendToClient", function(data) {
@@ -14,21 +14,17 @@ $(document).ready(function() {
             console.log("error en la consulta socket");
         }
         scheduler.load("/data", "json");
-        // $("#notificacionSocket").css('opacity', '1')
-
-        // setTimeout(() => {
-        //     $("#notificacionSocket").css('opacity', '0')
-        // }, 5000)
     });
-});
-function init() {
+
+    socket.emit('prueba', { conexionUp: 'usuario conectado papa' });
+
     scheduler.config.multisection = true;
 
     //prueba opciones
     scheduler.config.drag_move = true;
     scheduler.config.drag_resize = false;
 
-    scheduler.config.readonly = true;
+    scheduler.config.readonly = false;
 
     scheduler.config.first_hour = 6;
     scheduler.config.last_hour = 21;
@@ -100,6 +96,19 @@ function init() {
 
     scheduler.attachEvent("onDragEnd", function(id, mode, e) {
         var event_obj = dragged_event;
+        let tmp = {
+            id_clase: event_obj.id_clase,
+            salon: event_obj.section_id,
+            horaInicio: event_obj.start_date,
+            horaFinal: event_obj.end_date,
+        }
+        $.ajax({
+          type: "POST",
+          url: "/evento",
+          data: {
+            tmp
+          },
+        });
         // your custom logic
     });
 
@@ -127,11 +136,11 @@ function init() {
                     </div>`;
         return header;
     };
-    scheduler.attachEvent("onClick", function(id, e) {
-        console.log(id);
-        console.log(e);
-        // return true;
-    });
+    // scheduler.attachEvent("onClick", function(id, e) {
+    //     console.log(id);
+    //     console.log(e);
+    //     // return true;
+    // });
 
     scheduler.templates.event_text = function(start, end, event) {
         let estudiantes = `<div class="contenedor-estudiantes">`;
@@ -191,4 +200,4 @@ function init() {
     scheduler.init("scheduler_here", new Date(), "unit");
 
     scheduler.load("/data", "json");
-}
+});
