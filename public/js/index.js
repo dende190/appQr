@@ -1,5 +1,5 @@
+var socket = io();
 $(document).ready(function() {
-    var socket = io();
 
     socket.on("sendToClient", function(data) {
         console.log(data);
@@ -22,23 +22,24 @@ $(document).ready(function() {
     });
 });
 function init() {
-    scheduler.config.multisection = true;
+    scheduler.config.multisection = false;
 
     //prueba opciones
     scheduler.config.drag_move = true;
     scheduler.config.drag_resize = false;
 
-    scheduler.config.readonly = true;
+    scheduler.config.readonly = false;
 
     scheduler.config.first_hour = 6;
     scheduler.config.last_hour = 21;
+    scheduler.config.drag_create = false
     //
 
-    scheduler.templates.event_class = function(start, end, event) {
-        var original = scheduler.getEvent(event.id);
-        if (!scheduler.isMultisectionEvent(original)) return "";
-        return "multisection section_" + event.section_id;
-    };
+    // scheduler.templates.event_class = function(start, end, event) {
+    //     var original = scheduler.getEvent(event.id);
+    //     if (!scheduler.isMultisectionEvent(original)) return "";
+    //     return "multisection section_" + event.section_id;
+    // };
 
     scheduler.config.xml_date = "%Y-%m-%d %H:%i";
     scheduler.locale.labels.unit_tab = "Unit";
@@ -86,22 +87,22 @@ function init() {
         property: "section_id",
         list: sections,
         size: 5, // the number of units that should be shown in the view
-        step: 5, // the number of units that will be scrolled at once
-        skip_incorrect: true
+        step: 5 // the number of units that will be scrolled at once
+        // skip_incorrect: true
     });
 
     //pruebas
-    var dragged_event;
-    scheduler.attachEvent("onBeforeDrag", function(id, mode, e) {
-        // use it to get the object of the dragged event
-        dragged_event = scheduler.getEvent(id);
-        return true;
-    });
+    // var dragged_event;
+    // scheduler.attachEvent("onBeforeDrag", function(id, mode, e) {
+    //     // use it to get the object of the dragged event
+    //     dragged_event = scheduler.getEvent(id);
+    //     return true;
+    // });
 
-    scheduler.attachEvent("onDragEnd", function(id, mode, e) {
-        var event_obj = dragged_event;
-        // your custom logic
-    });
+    // scheduler.attachEvent("onDragEnd", function(id, mode, e) {
+    //     var event_obj = dragged_event;
+    //     // your custom logic
+    // });
 
     scheduler.attachEvent("onBeforeEventChanged", function(
         ev,
@@ -132,11 +133,28 @@ function init() {
         console.log(e);
         // return true;
     });
+    
+    var dragged_event;
+    scheduler.attachEvent("onBeforeDrag", function (id, mode, e){
+        // use it to get the object of the dragged event
+        dragged_event = scheduler.getEvent(id); 
+        console.log("El vento que se va  a mover " + dragged_event)
+        return true;
+    });
+     
+    scheduler.attachEvent("onDragEnd", function(id, mode, e){
+        
+        var event_obj = dragged_event;
+        console.log(event_obj)
+        // your custom logic
+    });
+
+
 
     scheduler.templates.event_text = function(start, end, event) {
         let estudiantes = `<div class="contenedor-estudiantes">`;
         for (var estudiante of event.estudiantes) {
-            if(estudiante.asistencia) {
+            if (estudiante.asistencia) {
                 estudiantes += `<span id="estudiante-${
                     estudiante.id
                 }"class="animated fadeIn badge badge-success estudiante">${
@@ -158,10 +176,10 @@ function init() {
     //
 
     //probar
-    scheduler.templates.tooltip_text = function(start, end, event) {
-        console.log(event);
-        return "<b>Event:</b> " + event.text + "<br/><b>Start date:</b> ";
-    };
+    // scheduler.templates.tooltip_text = function(start, end, event) {
+    //     console.log(event);
+    //     return "<b>Event:</b> " + event.text + "<br/><b>Start date:</b> ";
+    // };
 
     //quitar los iconos de la izquierda
     scheduler.config.icons_select = [];
@@ -169,24 +187,24 @@ function init() {
 
     //
 
-    scheduler.config.lightbox.sections = [
-        {
-            name: "description",
-            height: 130,
-            map_to: "text",
-            type: "textarea",
-            focus: true
-        },
-        {
-            name: "custom",
-            height: 22,
-            map_to: "section_id",
-            type: "multiselect",
-            options: sections,
-            vertical: "false"
-        },
-        { name: "time", height: 72, type: "time", map_to: "auto" }
-    ];
+    // scheduler.config.lightbox.sections = [
+    //     {
+    //         name: "description",
+    //         height: 130,
+    //         map_to: "text",
+    //         type: "textarea",
+    //         focus: true
+    //     },
+    //     {
+    //         name: "custom",
+    //         height: 22,
+    //         map_to: "section_id",
+    //         type: "multiselect",
+    //         options: sections,
+    //         vertical: "false"
+    //     },
+    //     { name: "time", height: 72, type: "time", map_to: "auto" }
+    // ];
 
     scheduler.init("scheduler_here", new Date(), "unit");
 
