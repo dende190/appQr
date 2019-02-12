@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Asistencia prueba estatica</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+</head>
+<body>
+    <div>
+        <table id="lista-table" class="table">
+            <thead>
+                <tr>
+                    <th>Clase</th>
+                    <th>Fecha Inicio</th>
+                    <th>Fecha Finalizacion</th>
+                    <th>Profesor</th>
+                    <th>Salon</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+        
+</body>
+<script
+src="https://code.jquery.com/jquery-3.3.1.min.js"
+integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+crossorigin="anonymous"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+<script>
+    $( document ).ready(function() {
+        let table = $("#lista-table").DataTable({
+            "language": {
+                "searchPlaceholder": "Clases"
+            },
+            "autoWidth": false,
+            "responsive": true,
+            "lengthMenu": [[20, 30, 45, -1], ['15 Rows', '30 Rows', '45 Rows', 'Todo']],
+            "ajax": "/lista/clasesData",
+            "columns": [
+                { 
+                    "data": "clase",
+                },{ 
+                    "data": "start_date",
+                },{ 
+                    "data": "end_date",
+                },{ 
+                    "data": "profesor",
+                },{ 
+                    "data": "salon",
+                },
+            ],
+            "createdRow": function (row, data, dataIndex) {
+                switch (data.estadoHost) {
+                    case 0:
+                        $(row).addClass('animated fadeIn');
+                    break;
+                    case 1:
+                        $(row).addClass('estado-critico animated fadeIn');
+                        break;
+                    case 2:
+                        $(row).addClass('estado-inalcanzable animated fadeIn');
+                        break;
+                    case 3:
+                        $(row).addClass('estado-pendiente animated fadeIn');
+                        break;
+                }
+            },
+            "columnDefs": [
+                { 
+                    "width": "30%", 
+                    "targets": [0,2],
+                },
+                { 
+                    "className": "dt-center", 
+                    "targets": [0,1],
+                },
+            ],
+            "aaSorting": [],
+            "rowsGroup": [0],
+        })
+        setInterval( ()=> {
+            table.ajax.reload()
+        }, 5000)
+    })
+</script>

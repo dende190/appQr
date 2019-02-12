@@ -5,6 +5,7 @@ var router = express.Router();
 const CalendarioController = require('../controller/CalendarioController')
 const SocketsController = require('../controller/SocketsController')
 const AsistenciaController = require('../controller/AsistenciaController')
+const ListaClasesController = require('../controller/ListaClasesController')
 
 //CALENDARIO
 router.get("/" , CalendarioController.dash);
@@ -16,5 +17,9 @@ router.get("/asistencia" , AsistenciaController.dash);
 
 //Sockets
 router.get("/sockets", SocketsController.send)
+
+//lista clases
+router.get('/lista/clases',ListaClasesController.vista)
+router.get('/lista/clasesData',ListaClasesController.datos)
 
 module.exports = router;
