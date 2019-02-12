@@ -4,7 +4,7 @@ const router = express.Router();
 const moment = require('moment')
 const crypto = require('crypto');
 const assert = require('assert');
-const {calendarioClases} = require('../utils/sql')
+const {calendarioClases,asistenciaEstudiantes} = require('../utils/sql')
 
 
 module.exports = {
@@ -33,11 +33,19 @@ module.exports = {
     informacionDash: async function (req, res) {
         let fecha = moment().format("YYYY-MM-DD")
         let result
+        let asistencias
         const dataBase = await mysql.conexionApp()
         if (dataBase) {
             try {
                 let [rows, fields] = await dataBase.query(calendarioClases, fecha);
                 result = rows;
+            } catch (e) {
+                console.log("(ERROR)" + e);
+            }
+            try {
+                let [rows, fields] = await dataBase.query(asistenciaEstudiantes, `${fecha}%`);
+                asistencias = rows;
+                console.log(asistencias)
             } catch (e) {
                 console.log("(ERROR)" + e);
             }
@@ -78,6 +86,17 @@ module.exports = {
                 }
             }
             arrayEstudiates = []
+        }
+        // console.log(arrayJson)
+        for(let asistencia of asistencias) {
+            for(clase of arrayJson) {
+                for(estudiante of clase.estudiantes) {
+                    if(asistencia.id_estudiante == estudiante.id) {
+                        estudiante.asistencia = 1
+                        console.log('existe un estudiante en la lista de asistidos')
+                    }
+                }
+            }
         }
 
         res.send(arrayJson)

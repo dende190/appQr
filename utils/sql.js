@@ -15,7 +15,9 @@ const calendarioClases = `SELECT clase.id AS id_clase, profesor.nombres AS nombr
                             INNER JOIN profesor ON profesor.id = clase_profesor.id_profesor 
                             WHERE clase.fecha_final > ?
                         `
+const asistenciaEstudiantes = `SELECT * FROM asistencia_estudiante WHERE hora_registro LIKE  ?`
 module.exports = {
     registrarAsistencia,
-    calendarioClases
+    calendarioClases,
+    asistenciaEstudiantes
 }
