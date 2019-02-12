@@ -1,6 +1,6 @@
 
-const registrarAsistencia = `INSERT INTO asistencia_estudiante (id_estudiante, id_salon, id_clase, id_profesor, en_clase, hora_registro )
-                            VALUES (?,?,?,?,?,?)`;
+const registrarAsistencia = `INSERT INTO asistencia_estudiante (id_estudiante, id_salon, id_clase, id_profesor, hora_registro )
+                            VALUES (?,?,?,?,?)`;
 const calendarioClases = `SELECT clase.id AS id_clase, profesor.nombres AS nombre_profesor, profesor.apellidos AS apellido_profesor, 
                                 modalidad.nombre AS modalidad, nivel.nombre AS nivel, salon.nombre AS salon, clase.hora_inicio, 
                                 clase.hora_final, estudiante.nombres AS nombre_estudiante, estudiante.apellidos AS apellido_estudiante, 

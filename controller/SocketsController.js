@@ -13,7 +13,7 @@ module.exports = {
         const fecha = moment().format()
         if(database) {
             try {
-                const [rows, fields] = await database.query(registrarAsistencia, [req.query.e,req.query.s,req.query.c,req.query.p,req.query.a, fecha])
+                const [rows, fields] = await database.query(registrarAsistencia, [req.query.e,req.query.s,req.query.c,req.query.p, fecha])
                 console.log("Estudiante ingresado correctamente en la asistencia")
             } catch (error) {
                 console.log("Erro ingresando el estudiante a la lista en la base de datos :(" + error)
@@ -22,10 +22,9 @@ module.exports = {
         database.end()
         
 		var io = req.app.get('socket.io'); 
-        io.emit('sendToClient', { 
-            id: req.query.e,
-        });
-
+		  io.emit('sendToClient', { 
+              id: req.query.e,
+          });
 		res.send("<h1>Enviado</h1>")
 	},
     evento: async function(req, res){
