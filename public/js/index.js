@@ -81,7 +81,7 @@ function init() {
         name: "unit",
         property: "section_id",
         list: sections,
-        size: 5, // the number of units that should be shown in the view
+        size: 7, // the number of units that should be shown in the view
         step: 5 // the number of units that will be scrolled at once
         // skip_incorrect: true
     });
