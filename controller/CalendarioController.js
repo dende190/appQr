@@ -21,11 +21,6 @@ module.exports = {
         var decrypted = decipher.update(encrypted, 'hex', 'utf8') + decipher.final('utf8');
         
         assert.equal(decrypted, text);
-        console.log("Se viene la encriptada")
-        console.log(encrypted)
-        console.log("Se viene la desencriptada")
-
-        console.log(decrypted)
 
         res.render('calen.ejs', {
         })

@@ -109,6 +109,8 @@ function init() {
             tmp
           },
         });
+
+        scheduler.load("/data", "json");
         // your custom logic
     });
 
