@@ -72,6 +72,7 @@ module.exports = {
                         hora_final: datos.hora_final,
                         clase: datos.modalidad + " " + datos.nivel,
                         profesor: datos.nombre_profesor + " " + datos.apellido_profesor,
+                        id_profesor: datos.id_profesor,
                         estudiantes: arrayEstudiates,
                         section_id: datos.id_salon,
 

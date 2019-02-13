@@ -15,6 +15,28 @@ $(document).ready(function() {
         }
         scheduler.load("/data", "json");
     });
+
+    socket.on("profesor", (data) => {
+        console.log(data)
+        scheduler.getEvent(data.id).color = "#729d39";
+        scheduler.updateEvent(data.id);
+    })
+
+    // var classname = document.getElementsByClassName("estudiante");
+
+
+    setTimeout(() => {
+        $("#estudiante-14").on("click", function (e) {
+            $("#modalPrueba").modal({
+              escapeClose: true,
+              clickClose: true,
+              showClose: true
+            });
+            $(".jquery-modal").css("z-index", 5)
+        });
+    }, 3000)
+
+
 });
 function init() {
     scheduler.config.multisection = false;
@@ -139,8 +161,8 @@ function init() {
         return header;
     };
     scheduler.attachEvent("onClick", function(id, e) {
-        console.log(id);
-        console.log(e);
+        // console.log(id);
+        // console.log(e);
         // return true;
     });
     
@@ -155,12 +177,15 @@ function init() {
     scheduler.attachEvent("onDragEnd", function(id, mode, e){
         
         var event_obj = dragged_event;
-        console.log(event_obj)
+        // console.log(event_obj)
         // your custom logic
     });
 
+
+
     scheduler.templates.event_text = function(start, end, event) {
         let estudiantes = `<div class="contenedor-estudiantes">`;
+        estudiantes += `<p style="margin: 2px 0 0 10px; font-size: 12px;">Profesor: <strong>${event.profesor}</strong></p>`
         for (var estudiante of event.estudiantes) {
             if (estudiante.asistencia) {
                 estudiantes += `<span id="estudiante-${
@@ -217,5 +242,9 @@ function init() {
     scheduler.init("scheduler_here", new Date(), "unit");
 
     scheduler.load("/data", "json");
-    
+
+
+   
 };
+
+

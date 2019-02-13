@@ -4,7 +4,7 @@ const registrarAsistencia = `INSERT INTO asistencia_estudiante (id_estudiante, i
 const calendarioClases = `SELECT clase.id AS id_clase, profesor.nombres AS nombre_profesor, profesor.apellidos AS apellido_profesor, 
                                 modalidad.nombre AS modalidad, nivel.nombre AS nivel, salon.nombre AS salon, clase.hora_inicio, 
                                 clase.hora_final, estudiante.nombres AS nombre_estudiante, estudiante.apellidos AS apellido_estudiante, 
-                                estudiante.id AS id_estudiante, salon.id AS id_salon
+                                estudiante.id AS id_estudiante, salon.id AS id_salon, profesor.id AS id_profesor
                             FROM clase INNER JOIN salon ON salon.id = clase.id_salon 
                             INNER JOIN curso ON curso.id = clase.id_curso 
                             INNER JOIN nivel ON nivel.id = curso.id_nivel 
