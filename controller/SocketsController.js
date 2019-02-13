@@ -29,13 +29,8 @@ module.exports = {
 	},
     evento: async function(req, res){
         let { id_clase, salon, horaInicio, horaFinal } = req.body.tmp
-        console.log(horaInicio)
-        console.log(horaFinal)
-        horaInicio = moment(new Date(horaInicio)).format("HH:MM")
-        horaFinal = moment(new Date(horaFinal)).format("HH:MM")
-
-        console.log(horaInicio)
-        console.log(horaFinal)
+        horaInicio = moment(new Date(horaInicio)).format()
+        horaFinal = moment(new Date(horaFinal)).format()
 
         const database = await mysql.conexionApp()
         const fecha = moment().format()

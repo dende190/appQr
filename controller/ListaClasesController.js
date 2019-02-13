@@ -17,7 +17,6 @@ module.exports = {
             try {
                 let [rows, fields] = await dataBase.query(listaClases);
                 result = rows;
-                console.log(result)
             } catch (e) {
                 console.log("(ERROR)" + e);
             }
@@ -54,9 +53,6 @@ module.exports = {
             }
             arrayEstudiates = []
         }
-        console.log("se viene el arreglo k ncesito")
-        console.log(arrayJson)
-                
         res.send({data:arrayJson})
     }
 }
