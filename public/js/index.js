@@ -1,4 +1,3 @@
-
 var socket = io();
 $(document).ready(function() {
     socket.on("sendToClient", function(data) {
@@ -16,6 +15,7 @@ $(document).ready(function() {
         scheduler.load("/data", "json");
     });
 });
+
 function init() {
     scheduler.config.multisection = false;
 
@@ -27,7 +27,7 @@ function init() {
 
     scheduler.config.first_hour = 6;
     scheduler.config.last_hour = 21;
-    scheduler.config.drag_create = false
+    scheduler.config.drag_create = false;
     //
 
     // scheduler.templates.event_class = function(start, end, event) {
@@ -100,14 +100,14 @@ function init() {
             id_clase: event_obj.id_clase,
             salon: event_obj.section_id,
             horaInicio: event_obj.start_date,
-            horaFinal: event_obj.end_date,
-        }
+            horaFinal: event_obj.end_date
+        };
         $.ajax({
-          type: "POST",
-          url: "/evento",
-          data: {
-            tmp
-          },
+            type: "POST",
+            url: "/evento",
+            data: {
+                tmp
+            }
         });
 
         scheduler.load("/data", "json");
@@ -120,10 +120,11 @@ function init() {
         is_new,
         original
     ) {
-        //any custom logic here
-        // if (!confirm("Are you sure about this change?")) {
-        //                  revertFunc();
-        //              }
+        // any custom logic here
+        if (!confirm("Seguro que quiere cambiar la clase de salon?")) {
+            e.preventDefault();
+            return false;
+        }
         return true;
     });
 
@@ -143,19 +144,18 @@ function init() {
         console.log(e);
         // return true;
     });
-    
+
     var dragged_event;
-    scheduler.attachEvent("onBeforeDrag", function (id, mode, e){
+    scheduler.attachEvent("onBeforeDrag", function(id, mode, e) {
         // use it to get the object of the dragged event
-        dragged_event = scheduler.getEvent(id); 
-        console.log("El vento que se va  a mover " + dragged_event)
+        dragged_event = scheduler.getEvent(id);
+        console.log("El vento que se va  a mover " + dragged_event);
         return true;
     });
-     
-    scheduler.attachEvent("onDragEnd", function(id, mode, e){
-        
+
+    scheduler.attachEvent("onDragEnd", function(id, mode, e) {
         var event_obj = dragged_event;
-        console.log(event_obj)
+        console.log(event_obj);
         // your custom logic
     });
 
@@ -217,5 +217,4 @@ function init() {
     scheduler.init("scheduler_here", new Date(), "unit");
 
     scheduler.load("/data", "json");
-    
-};
+}
