@@ -4,8 +4,6 @@ var QRCode = require('qrcode')
 
 module.exports = {
 	dash: function(req, res){
-<<<<<<< HEAD
-
 		var io = req.app.get('socket.io'); 
 		io.emit('profesor', { 
 			id: req.query.id,
