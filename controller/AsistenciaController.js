@@ -4,14 +4,15 @@ var QRCode = require('qrcode')
 
 module.exports = {
 	dash: function(req, res){
+<<<<<<< HEAD
 
 		var io = req.app.get('socket.io'); 
 		io.emit('profesor', { 
 			id: req.query.id,
 		});
 
-		QRCode.toDataURL(`http://172.16.10.14:3000/sockets?e=21&s=5&c=45&p=8`,{
-			scale:7,
+		QRCode.toDataURL(`http://172.16.10.14:3000/sockets?e=17&s=5&c=45&p=8`,{
+			scale:9,
 			
 		})
 		.then(url => {
